@@ -2,6 +2,7 @@
 
 # region * Imports
 
+from glob import glob
 from typing import List
 from telegram import Update, User, Message
 from telegram import InlineKeyboardButton as Button, InlineKeyboardMarkup as Markup
@@ -71,7 +72,7 @@ def confirm_new_member_captcha(update: Update, context: CallbackContext):
     global USER_CAPTCHA
     # Answer the callback to remove the loading icon from the button
     update.callback_query.answer()
-    # Get the generated code
+    # Get the generated code and some user/group information
     callback_data: str = update.callback_query.data.split("_")[-1]
     user_id: int = update.effective_user.id
     chat_id: int = update.effective_chat.id
@@ -92,7 +93,10 @@ def confirm_new_member_captcha(update: Update, context: CallbackContext):
 
 
 def handle_member_leaving(update: Update, context: CallbackContext):
-    return ConversationHandler.END
+    global USER_CAPTCHA
+    # Get the user_id and remove it from the dictionary
+    user_id: int = update.effective_user.id
+    del USER_CAPTCHA[user_id]
 
 
 # handler for new members joining the group

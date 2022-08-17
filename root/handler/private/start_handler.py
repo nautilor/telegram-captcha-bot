@@ -15,6 +15,7 @@ def handle_private_start(update: Update, context: CallbackContext):
     update.effective_message.delete()
 
 
+# handler for the start command in a private chat
 private_start_handler = MessageHandler(
     Filters.chat_type.private & Filters.command & Filters.regex("^/start$"),
     handle_private_start,
