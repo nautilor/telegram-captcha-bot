@@ -8,5 +8,5 @@ from mongoengine import ListField, IntField, StringField
 
 class Chat(BaseModel):
     chat_id = IntField(required=True, unique=True)
-    admins = ListField(IntField)
+    admins = ListField(IntField())
     join_message = StringField()

@@ -96,15 +96,20 @@ def confirm_new_member_captcha(update: Update, context: CallbackContext):
         # Delete the captcha message
         update.effective_message.delete()
         # Remove the information of the user cause they are not needed anymore
-        del USER_CAPTCHA[user_id]
-        # Stop the conversation
+        try:
+            USER_CAPTCHA.pop(user_id)
+        except Exception:
+            pass
 
 
 def handle_member_leaving(update: Update, context: CallbackContext):
     global USER_CAPTCHA
     # Get the user_id and remove it from the dictionary
     user_id: int = update.effective_user.id
-    del USER_CAPTCHA[user_id]
+    try:
+        USER_CAPTCHA.pop(user_id)
+    except Exception:
+        pass
 
 
 # handler for new members joining the group

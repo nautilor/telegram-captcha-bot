@@ -17,3 +17,11 @@ def retrieve_chat(chat_id: int):
         return Chat.objects().get(chat_id=chat_id)
     except Exception as e:
         print(f"Unable to find the chat with id [{chat_id}]: {e}")
+
+
+def add_admin(chat_id: int, user_id: int):
+    chat: Chat = retrieve_chat(chat_id)
+    if chat:
+        if not user_id in chat.admins:
+            chat.admins.append(user_id)
+            chat.save()
