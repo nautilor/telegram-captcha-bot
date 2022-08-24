@@ -22,7 +22,7 @@ def handle_group_reload(update: Update, context: CallbackContext):
 
 
 # handler for the start command in a private chat
-private_start_handler = MessageHandler(
+reload_command_handler = MessageHandler(
     Filters.chat_type.groups & Filters.command & Filters.regex("^/reload$"),
     handle_group_reload,
 )
