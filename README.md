@@ -15,5 +15,5 @@ No there's already a functional version on Telegram, just add [this bot](https:/
 - [x] Welcome messages
 - [ ] Add some logs
 - [ ] Maybe a group admin can set a custom message or change it?
-- [ ] handle the /reload command in a database so an admin can actually chage settings in private chat
+- [x] handle the /reload command in a database so an admin can actually chage settings in private chat
 - [ ] ...
