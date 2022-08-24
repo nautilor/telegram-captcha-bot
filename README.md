@@ -14,6 +14,7 @@ No there's already a functional version on Telegram, just add [this bot](https:/
 - [ ] If the user does not press any button after a certain amount of time just kick it
 - [x] Welcome messages
 - [ ] Add some logs
-- [ ] Maybe a group admin can set a custom message or change it?
-- [x] handle the /reload command in a database so an admin can actually chage settings in private chat
+- [x] Handle the /reload command in a database so an admin can actually chage settings in private chat
+- [ ]  Allow the admin to set a custom message in a private chat
+- [ ]  Store the chat name along with the id to show it in the button
 - [ ] ...
