@@ -10,6 +10,9 @@ from telegram import ChatPermissions
 TOKEN = environ.get("TOKEN", None)
 BOT_USERNAME = environ.get("BOT_USERNAME", "")
 
+DEFAULT_MESSAGE_ARGS = {"disable_web_page_preview": True, "parse_mode": "HTML"}
+DEFAULT_PHOTO_ARGS = {"parse_mode": "HTML"}
+
 
 NEW_MEMBER_PERMISSIONS: ChatPermissions = ChatPermissions(can_send_messages=False)
 

@@ -4,10 +4,10 @@
 
 # endregion
 
-USER_LINK = lambda user: f"<a href=tg://user?id={user.id}>{user.first_name}</a>"
+USER_LINK = lambda user: f"<a href='tg://user?id={user.id}'>{user.first_name}</a>"
 
-JOIN_MESSAGE: str = "Welcome {}, please confirm you're a human by selecting the right captcha."
-JOIN_MESSAGE= lambda user: JOIN_MESSAGE.format(USER_LINK(user))
+JOIN_MESSAGE_TEXT: str = "Welcome {}, please confirm you're a human by selecting the right captcha."
+JOIN_MESSAGE = lambda user: JOIN_MESSAGE_TEXT.format(USER_LINK(user))
 
 NEW_USER_PRIVATE_CHAT_WELCOME: str = "Hello {}, I'm a captcha bot that will filter out all userbots from your group, just add me to a group a launch the command /reload"
 NEW_USER_PRIVATE_CHAT_WELCOME = lambda user: NEW_USER_PRIVATE_CHAT_WELCOME.format(USER_LINK(user))
