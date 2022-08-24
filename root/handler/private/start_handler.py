@@ -2,16 +2,17 @@
 
 # region * Imports
 
-from telegram import Update
+from telegram import Update, User
 from telegram.ext import CallbackContext, MessageHandler, Filters
+
+from root.constant.message import NEW_USER_PRIVATE_CHAT_WELCOME
 
 # endregion
 
 
 def handle_private_start(update: Update, context: CallbackContext):
-    update.effective_message.reply_text(
-        "👋 Hello and welcome,\n\nTo use me just add me as an administrator into a group and I will do the rest."
-    )
+    user: User = update.effective_user
+    update.effective_message.reply_text(NEW_USER_PRIVATE_CHAT_WELCOME(user))
     update.effective_message.delete()
 
 

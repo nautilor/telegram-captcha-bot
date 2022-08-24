@@ -9,6 +9,7 @@ from telegram import InlineKeyboardButton as Button, InlineKeyboardMarkup as Mar
 from telegram.ext import CallbackContext, MessageHandler, Filters
 from telegram.ext import ConversationHandler, CallbackQueryHandler
 from root.constant.captcha import CAPTCHA_LENGTH
+from root.constant.message import JOIN_MESSAGE
 from root.constant.telegram import APPROVED_USER_PERMISSIONS, NEW_MEMBER_PERMISSIONS
 from root.helper.captcha_helper import generate_image_data, generate_random_string
 from random import shuffle
@@ -57,7 +58,7 @@ def handle_new_members(update: Update, context: CallbackContext):
         keyboard: Markup = build_new_member_keyboard(captcha_text)
         # Generate a picture from the captcha text
         captcha_image = generate_image_data(captcha_text)
-        text: str = f"Please {user.first_name} CONFIRM the captcha"
+        text: str = JOIN_MESSAGE(user)
         # Send the captcha along with the keyboard for every new users
         message: Message = context.bot.send_photo(
             chat_id, captcha_image, caption=text, reply_markup=keyboard
