@@ -20,9 +20,12 @@ def handle_group_reload(update: Update, context: CallbackContext):
     admins: List[int] = [member.user.id for member in chat.get_administrators()]
     # check that the user who used the command is an admin
     if user.id in admins:
+        # add the new admin to the chat
         add_admin(chat.id, user.id)
+        # send a confirmation  message
         message: Message = context.bot.send_message(chat.id, ADMIN_ADDED_TO_LIST)
         sleep(3)
+        # delete the confirmation message
         message.delete()
 
 
