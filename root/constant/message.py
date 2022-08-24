@@ -12,4 +12,4 @@ JOIN_MESSAGE= lambda user: JOIN_MESSAGE.format(USER_LINK(user))
 NEW_USER_PRIVATE_CHAT_WELCOME: str = "Hello {}, I'm a captcha bot that will filter out all userbots from your group, just add me to a group a launch the command /reload"
 NEW_USER_PRIVATE_CHAT_WELCOME = lambda user: NEW_USER_PRIVATE_CHAT_WELCOME.format(USER_LINK(user))
 
-GROUP_ADDED_TO_LIST: str = "The group has now been added succesfully!"
+ADMIN_ADDED_TO_LIST: str = "You are now a bot admin of these group!"

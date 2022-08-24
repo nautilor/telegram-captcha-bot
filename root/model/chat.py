@@ -7,6 +7,6 @@ from mongoengine import ListField, IntField, StringField
 # endregion
 
 class Chat(BaseModel):
-    chat_id = IntField(required=True)
+    chat_id = IntField(required=True, unique=True)
     admins = ListField(IntField)
-    welcome_message = StringField()
+    join_message = StringField()

@@ -8,6 +8,7 @@ from telegram import ChatPermissions
 # endregion
 
 TOKEN = environ.get("TOKEN", None)
+BOT_USERNAME = environ.get("BOT_USERNAME", "")
 
 
 NEW_MEMBER_PERMISSIONS: ChatPermissions = ChatPermissions(can_send_messages=False)

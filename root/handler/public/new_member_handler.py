@@ -10,10 +10,10 @@ from telegram.ext import CallbackContext, MessageHandler, Filters
 from telegram.ext import ConversationHandler, CallbackQueryHandler
 from root.constant.captcha import CAPTCHA_LENGTH
 from root.constant.message import JOIN_MESSAGE
-from root.constant.telegram import APPROVED_USER_PERMISSIONS, NEW_MEMBER_PERMISSIONS
+from root.constant.telegram import APPROVED_USER_PERMISSIONS, BOT_USERNAME, NEW_MEMBER_PERMISSIONS
 from root.helper.captcha_helper import generate_image_data, generate_random_string
 from random import shuffle
-
+from root.helper.chat_helper import create_chat
 from root.model.user_info import UserInfo
 
 # endregion
@@ -52,21 +52,28 @@ def handle_new_members(update: Update, context: CallbackContext):
     # Extract the list of new users that joined the group
     users: List[User] = update.effective_message.new_chat_members
     for user in users:
-        # Generate a random captcha for the user validation
-        captcha_text: str = generate_random_string()
-        # Generate the keyboard for the user to validate itself
-        keyboard: Markup = build_new_member_keyboard(captcha_text)
-        # Generate a picture from the captcha text
-        captcha_image = generate_image_data(captcha_text)
-        text: str = JOIN_MESSAGE(user)
-        # Send the captcha along with the keyboard for every new users
-        message: Message = context.bot.send_photo(
-            chat_id, captcha_image, caption=text, reply_markup=keyboard
-        )
-        # Store the information to confirm them later
-        store_user_information(user.id, chat_id, message.message_id, captcha_text)
-        # Restrict the user permissions
-        context.bot.restrict_chat_member(chat_id, user.id, NEW_MEMBER_PERMISSIONS)
+        # do not count the bots
+        if not user.is_bot:
+            # Generate a random captcha for the user validation
+            captcha_text: str = generate_random_string()
+            # Generate the keyboard for the user to validate itself
+            keyboard: Markup = build_new_member_keyboard(captcha_text)
+            # Generate a picture from the captcha text
+            captcha_image = generate_image_data(captcha_text)
+            text: str = JOIN_MESSAGE(user)
+            # Send the captcha along with the keyboard for every new users
+            message: Message = context.bot.send_photo(
+                chat_id, captcha_image, caption=text, reply_markup=keyboard
+            )
+            # Store the information to confirm them later
+            store_user_information(user.id, chat_id, message.message_id, captcha_text)
+            # Restrict the user permissions
+            context.bot.restrict_chat_member(chat_id, user.id, NEW_MEMBER_PERMISSIONS)
+        else:
+            # check if the bot added is this one
+            if user.username == BOT_USERNAME:
+                # store the chat to mongodb
+                create_chat(chat_id)
 
 
 def confirm_new_member_captcha(update: Update, context: CallbackContext):
